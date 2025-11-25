@@ -16,6 +16,7 @@
     "utility": "c",
     "variant": "c",
     "stdio.h": "c",
-    "value.h": "c"
+    "value.h": "c",
+    "random": "c"
   }
 }
