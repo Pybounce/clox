@@ -17,6 +17,7 @@
     "variant": "c",
     "stdio.h": "c",
     "value.h": "c",
-    "random": "c"
+    "random": "c",
+    "scanner.h": "c"
   }
 }
