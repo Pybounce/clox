@@ -17,7 +17,7 @@ Scanner scanner;
 void initScanner(const char* source) {
     scanner.start = source;
     scanner.current = source;
-    int line = 1;
+    scanner.line = 1;
 }
 
 static bool isAlpha(char c) {
@@ -59,6 +59,7 @@ static Token makeToken(TokenType type) {
     token.start = scanner.start;
     token.length = (int)(scanner.current - scanner.start);
     token.line = scanner.line;
+    return token;
 }
 
 static Token errorToken(const char* message) {
@@ -84,6 +85,10 @@ static void skipWhitespace() {
                     while (peek() != '\n' && !isAtEnd()) { advance(); }
                 }
                 else { return; }
+                break;
+            case '\n':
+                scanner.line++;
+                advance();
                 break;
             default: 
                 return;
@@ -140,12 +145,12 @@ static Token identifier() {
 }
 
 static Token number() {
-    while (isDigit(peek())) { advance; }
+    while (isDigit(peek())) { advance(); }
     if (peek() == '.' && isDigit(peekNext())) {
         // Consume decimal '.'
         advance();
 
-        while (isDigit(peek())) { advance; }
+        while (isDigit(peek())) { advance(); }
     }
     return makeToken(TOKEN_NUMBER); 
 }
@@ -168,7 +173,6 @@ Token scanToken() {
     if (isAtEnd()) { return makeToken(TOKEN_EOF); }
 
     char c = advance();
-
     if (isAlpha(c)) { return identifier(); }
     if (isDigit(c)) { return number(); }
     switch (c) {
@@ -189,6 +193,5 @@ Token scanToken() {
       case '>': return makeToken(match('=') ? TOKEN_GREATER_EQUAL : TOKEN_GREATER);
       case '"': return string();
     }
-
     return errorToken("Unexpected character.");
 }
