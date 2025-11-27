@@ -19,6 +19,11 @@
     "value.h": "c",
     "random": "c",
     "scanner.h": "c",
-    "sstream": "c"
+    "sstream": "c",
+    "chrono": "c",
+    "optional": "c",
+    "ranges": "c",
+    "system_error": "c",
+    "debug.h": "c"
   }
 }
