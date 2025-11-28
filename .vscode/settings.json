@@ -24,6 +24,8 @@
     "optional": "c",
     "ranges": "c",
     "system_error": "c",
-    "debug.h": "c"
+    "debug.h": "c",
+    "bitset": "c",
+    "string_view": "c"
   }
 }
