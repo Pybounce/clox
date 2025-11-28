@@ -90,7 +90,7 @@ bool tableSet(Table* table, ObjString* key, Value value) {
 bool tableDelete(Table* table, ObjString* key) {
     if (table->count == 0) { return false; }
 
-    Entry* entry = findEntry(table, table->capacity, key);
+    Entry* entry = findEntry(table->entries, table->capacity, key);
     if (entry->key == NULL) { return false; }
 
     entry->key = NULL;
@@ -104,5 +104,25 @@ void tableAddAll(Table* from, Table* to) {
         if (entry->key != NULL) {
           tableSet(to, entry->key, entry->value);
         }
+    }
+}
+
+ObjString* tableFindString(Table* table, const char* chars, int length, uint32_t hash) {
+    if (table->count == 0) return NULL;
+                            
+    uint32_t index = hash % table->capacity;
+    for (;;) {
+        Entry* entry = &table->entries[index];
+        if (entry->key == NULL) {
+            // Stop if we find an empty non-tombstone entry.
+            if (IS_NIL(entry->value)) return NULL;
+        } else if (entry->key->length == length &&
+            entry->key->hash == hash &&
+            memcmp(entry->key->chars, chars, length) == 0) {
+            // We found it.
+            return entry->key;
+        }
+      
+        index = (index + 1) % table->capacity;
     }
 }
