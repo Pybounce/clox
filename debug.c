@@ -28,7 +28,7 @@ int disassembleInstruction(Chunk* chunk, int offset) {
     printf("%04d ", offset);
 
     if (offset > 0 && chunk->lines[offset] == chunk->lines[offset - 1]) {
-        printf(" | ");
+        printf("%4s ", "|");
     }
     else {
         printf("%4d ", chunk->lines[offset]);
