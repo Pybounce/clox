@@ -27,6 +27,7 @@
     "debug.h": "c",
     "bitset": "c",
     "string_view": "c",
-    "string": "c"
+    "string": "c",
+    "ostream": "c"
   }
 }
