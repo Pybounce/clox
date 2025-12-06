@@ -12,6 +12,7 @@
 typedef struct {
     ObjFunction* function;
     uint8_t* ip;
+    /// [I THINK] Pointer to the stack, starting at the call frame for the current function
     Value* slots;
 } CallFrame;
 
